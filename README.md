@@ -1,2 +1,0 @@
-# steemIt
-Decentralized Social Media 
