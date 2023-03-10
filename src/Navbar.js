@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState,useEffect } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import { Link} from "react-router-dom";
 import {
@@ -11,7 +11,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-
+import axios, * as others from 'axios'
 const products = [
   { name: 'All Topics', description: 'Check all topics which trending', to: './Posts', icon: ClipboardIcon },
   { name: 'Most Viewd Posts', description: 'Posts viewd by mostly people', to: '#', icon: EyeIcon },
@@ -29,6 +29,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
 
   return (
     <header className="bg-white">
@@ -108,6 +109,9 @@ export default function Navbar() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link to="./Login" className="text-sm font-semibold leading-6 text-gray-900">
             Log in <span aria-hidden="true">&rarr;</span>
+          </Link>
+          <Link to="./Signup" className="text-sm font-semibold leading-6 text-gray-900 ml-5">
+            SignUp <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
       </nav>

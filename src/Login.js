@@ -1,5 +1,5 @@
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-
+import { Link} from "react-router-dom";
 export default function Login() {
   return (
     <>
@@ -76,9 +76,9 @@ export default function Login() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
-                </a>
+                <Link to="../Signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  Don't have account? Signup
+                </Link>
               </div>
             </div>
 

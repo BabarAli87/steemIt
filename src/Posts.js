@@ -292,7 +292,8 @@ export default function Posts() {
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-3">
+              <div className="lg:col-span-3 bg-gray-50 py-5 px-3 shadow rounded-2xl">
+                
                 <Feed/>
               </div>
             </div>
