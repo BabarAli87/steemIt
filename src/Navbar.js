@@ -1,6 +1,8 @@
 import { Fragment, useState,useEffect } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import { Link} from "react-router-dom";
+import axios from 'axios';
+
 import {
   CheckBadgeIcon,
   Bars3Icon,
@@ -11,9 +13,9 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-import axios, * as others from 'axios'
+
 const products = [
-  { name: 'All Topics', description: 'Check all topics which trending', to: './Posts', icon: ClipboardIcon },
+  { name: 'All Topics', description: 'Check all topics which trending', to: './Posts', icon: ClipboardIcon,  },
   { name: 'Most Viewd Posts', description: 'Posts viewd by mostly people', to: '#', icon: EyeIcon },
   { name: 'My Topics', description: 'Topics on which you have posts', to: '#', icon: BookOpenIcon },
   { name: 'All Badges', description: 'Identify content creators that share common interests.', to: '#', icon: CheckBadgeIcon },
@@ -102,15 +104,15 @@ export default function Navbar() {
             </Transition>
           </Popover>
 
-          <Link to="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link to="#" className="text-sm font-semibold leading-6 text-gray-300">
             Communities
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="./Login" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link to="./Login" className="text-sm font-semibold leading-6 text-gray-300">
             Log in <span aria-hidden="true">&rarr;</span>
           </Link>
-          <Link to="./Signup" className="text-sm font-semibold leading-6 text-gray-900 ml-5">
+          <Link to="./Signup" className="text-sm font-semibold leading-6 text-gray-300 ml-5">
             SignUp <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>

@@ -1,9 +1,12 @@
 
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import Feed from './Feed'
+import { Client } from 'dsteem';
+import { json } from 'react-router-dom'
+
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
   { name: 'Best Rating', href: '#', current: false },
@@ -62,7 +65,25 @@ function classNames(...classes) {
 
 export default function Posts() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const [posts, setPosts] = useState([]);
 
+useEffect(()=>{  
+  const client = new Client('https://api.steemit.com');
+    const query = {
+      tag: "rme", // This tag is used to filter the results by a specific post tag
+      limit: 25, // This limit allows us to limit the overall results returned to 5
+    };
+    client.database.getDiscussions('blog', query).then(result => {
+        setPosts(result)
+ 
+
+    }).catch(err => {
+      alert('Error occurred' + err);
+    });
+    
+},
+
+[])
   return (
     <div className="bg-white">
       <div>
@@ -292,9 +313,11 @@ export default function Posts() {
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-3 bg-gray-50 py-5 px-3 shadow rounded-2xl">
+              <div className="lg:col-span-3">
                 
-                <Feed/>
+                <Feed
+                  postData={posts}
+                />
               </div>
             </div>
           </section>
