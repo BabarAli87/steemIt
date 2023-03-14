@@ -1,4 +1,3 @@
-
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
@@ -6,6 +5,7 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import Feed from './Feed'
 import { Client } from 'dsteem';
 import { json } from 'react-router-dom'
+import axios from 'axios'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -68,19 +68,18 @@ export default function Posts() {
   const [posts, setPosts] = useState([]);
 
 useEffect(()=>{  
-  const client = new Client('https://api.steemit.com');
-    const query = {
-      tag: "rme", // This tag is used to filter the results by a specific post tag
-      limit: 25, // This limit allows us to limit the overall results returned to 5
-    };
-    client.database.getDiscussions('blog', query).then(result => {
-        setPosts(result)
- 
-
-    }).catch(err => {
-      alert('Error occurred' + err);
-    });
+  axios.get("https://sds.steemworld.org/feeds_api/getActivePostsByCreated").then(
+    (response) => {
+      let postsData = response.data.result.rows;
+      setPosts(postsData)
+        console.log(postsData);
+    },
+    (error) => {
+        console.log(error);
+    }
     
+);
+console.log(posts);
 },
 
 [])

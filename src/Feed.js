@@ -5,17 +5,28 @@ import { RxDotFilled } from 'react-icons/rx';
 export default function Feed(props) {
   const [postImages, setPostImages] = useState([]);
 
-  useEffect(() => {
-    const images = props.postData.map(element => {
-      let jsonData = JSON.parse(element.json_metadata)
-      let image = jsonData.image ? jsonData.image[0] : ""
-      return image
-    });
-    setPostImages(images);
-    console.log(images)
-  }, [props.postData]);
+  let images = [];
 
-
+  props.postData.forEach(ele => {
+    images.push(ele[21]);
+  });
+  
+  if (images.length > 0) {
+    let jsonStr = images.join('');
+    try {
+      let printableJsonStr = jsonStr.replace(/[^\x20-\x7E]/g, '');
+      let parsedImages = JSON.parse(printableJsonStr);
+      console.log(parsedImages);
+    } catch (err) {
+      console.error('Error parsing JSON:', err.message);
+      console.log('JSON string:', jsonStr);
+    }
+  } else {
+    console.log('No images found.');
+  }
+  
+  
+  
     const slides = [
         {
           url: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80',
@@ -56,7 +67,7 @@ export default function Feed(props) {
       <div>
          {
         props.postData.map((post)=>(
-          <div key={post.id} className='mb-3  bg-gray-50 py-5 px-3 shadow rounded-2xl'>
+          <div key={post[0]} className='mb-3  bg-gray-50 py-5 px-3 shadow rounded-2xl'>
           <div className="relative mb-4 flex items-center justify-between gap-x-4">
               <div className='flex items-center'>
          
@@ -64,7 +75,7 @@ export default function Feed(props) {
                   <div className="text-sm leading-6">
                       <p className="font-semibold text-gray-900">
                       <a href='#' className='text-base'>
-                          {post.author}
+                          {post[18]}
                       </a>
                       </p>
                       <p className="text-gray-600">{new Date(post.created).toDateString()}</p>
@@ -74,7 +85,7 @@ export default function Feed(props) {
                   <BsFill4CircleFill size={30}/>
               </div>
           </div>
-          <h4 className='text-lg mb-2 font-semibold'>{post.title}</h4>
+          <h4 className='text-lg mb-2 font-semibold'>{post[20]}</h4>
           <div className='max-w-[1000px] h-[400px] w-full m-auto  px-4 relative group'>
           <div
               style={{ backgroundImage: `url(${postImages[currentIndex]})` }}
@@ -89,7 +100,7 @@ export default function Feed(props) {
               <BsChevronCompactRight onClick={nextSlide} size={30} />
           </div>
           <div className='flex  justify-center py-2 absolute inset-0 top-80'>
-              {postImages.map((slide, slideIndex) => (
+              {slides.map((slide, slideIndex) => (
               <div
                   key={slideIndex}
                   onClick={() => goToSlide(slideIndex)}
@@ -100,8 +111,8 @@ export default function Feed(props) {
               ))}
           </div>
           </div>
-          <h4 className='text-lg mt-3 font-semibold border-b border-gray-200 pb-2 truncate'>{post.body}</h4>
-      </div>
+          <h4 className='text-lg mt-3 font-semibold border-b border-gray-200 pb-2 truncate'>{post[22]}</h4>
+          </div>
         ))
        }
       </div>
