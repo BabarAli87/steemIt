@@ -6,6 +6,7 @@ import Feed from './Feed'
 import { Client } from 'dsteem';
 import { json } from 'react-router-dom'
 import axios from 'axios'
+import steem from 'steem/lib/api'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -68,15 +69,14 @@ export default function Posts() {
   const [posts, setPosts] = useState([]);
 
 useEffect(()=>{  
-  axios.get("https://sds.steemworld.org/feeds_api/getActivePostsByCreated").then(
-    (response) => {
-      let postsData = response.data.result.rows;
-      setPosts(postsData)
-        console.log(postsData);
-    },
-    (error) => {
-        console.log(error);
-    }
+  const query = {
+    tag: "", // Empty tag to fetch all posts
+    limit: 100
+  };
+  const imgReg = /!\[.\]\((.)\)/;
+  steem.api.getDiscussionsByCreated(query, function(err, result) {
+    console.log(result);
+  }
     
 );
 console.log(posts);
