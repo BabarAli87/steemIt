@@ -3,10 +3,7 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import Feed from './Feed'
-import { Client } from 'dsteem';
-import { json } from 'react-router-dom'
 import axios from 'axios'
-import steem from 'steem/lib/api'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -68,21 +65,7 @@ export default function Posts() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [posts, setPosts] = useState([]);
 
-useEffect(()=>{  
-  const query = {
-    tag: "", // Empty tag to fetch all posts
-    limit: 100
-  };
-  const imgReg = /!\[.\]\((.)\)/;
-  steem.api.getDiscussionsByCreated(query, function(err, result) {
-    console.log(result);
-  }
-    
-);
-console.log(posts);
-},
 
-[])
   return (
     <div className="bg-white">
       <div>
@@ -315,7 +298,7 @@ console.log(posts);
               <div className="lg:col-span-3">
                 
                 <Feed
-                  postData={posts}
+                  // postData={posts}
                 />
               </div>
             </div>
